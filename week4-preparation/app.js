@@ -1,7 +1,6 @@
 var express = require('express');
-var app = express();
 var bodyParser = require("body-parser"); 
-var fs = require('fs');
+var app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));  
 app.use(function(req, res, next) {
@@ -36,10 +35,5 @@ app.get('/query', function (req, res) {
 })
  
 var server = app.listen(8080, function () {
- 
-  var host = server.address().address
-  var port = server.address().port
- 
-  console.log("Listen: http://%s:%s", host, port)
- 
+  console.log("Listen: http://%s:%s", server.address().address, server.address().port)
 })
