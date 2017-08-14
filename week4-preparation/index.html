@@ -79,6 +79,7 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function  () {
+
 	        $.ajax({
 	            type: "GET",
 	            url: "http://127.0.0.1:8080/query",
@@ -92,26 +93,30 @@
 	            },
 	        });
 
-		    $('#submit').on('click', function() {
-		        $.ajax({
-		            type: "POST",
-		            url: "http://127.0.0.1:8080/submit",
-		            timeout: 1000,
-		            data: { 
-		            	title: $('#title').val(), 
-		            	date: $('#date').val(), 
-		            	duration: $('#duration').val(), 
-		            	genre: $('#genre').val(), 
-		            	synopsis: $('#synopsis').val() 
-		            },
-		            success: function(data) {
-		                $('#title_val').text(data.title);
-		                $('#date_val').text(data.date);
-		                $('#duration_val').text(data.duration);
-		                $('#genre_val').text(data.genre);
-		                $('#synopsis_val').text(data.synopsis);
-		            },
-		        });
+        	$('#submit').on('click', function() {
+				if ($('#title').val() != "" && $('#date').val() != "" && $('#duration').val() != "" && $('#genre').val() != "" && $('#synopsis').val() != "") {
+			        $.ajax({
+			            type: "POST",
+			            url: "http://127.0.0.1:8080/submit",
+			            timeout: 1000,
+			            data: { 
+			            	title: $('#title').val(), 
+			            	date: $('#date').val(), 
+			            	duration: $('#duration').val(), 
+			            	genre: $('#genre').val(), 
+			            	synopsis: $('#synopsis').val() 
+			            },
+			            success: function(data) {
+			                $('#title_val').text(data.title);
+			                $('#date_val').text(data.date);
+			                $('#duration_val').text(data.duration);
+			                $('#genre_val').text(data.genre);
+			                $('#synopsis_val').text(data.synopsis);
+			            },
+			        });
+				}else{
+					alert("One or more fields are empty.");
+				}
 		    });
 		});
 	</script>
