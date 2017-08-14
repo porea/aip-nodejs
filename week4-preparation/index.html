@@ -1,0 +1,119 @@
+<html>
+<head>
+<title>new</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<style type="text/css">
+	table{
+		border-collapse: collapse;
+		width: 100%;
+	}
+	td{
+		border: 1px solid #333;
+		padding: 10px;
+	}
+	td:first-child{
+		width: 100px;
+	}
+	input[type="button"],
+	input[type="text"]{
+		width: 100%;
+	}
+	hr{
+		margin-top: 20px;
+	}
+</style>
+</head>
+
+<body>
+	<div style="width: 500px; margin: 40px auto;">
+		<h1>Movie Recommodation</h1>
+		<table>
+			<tr>
+				<td>Title</td>
+				<td><p id="title_val"></p></td>
+			</tr>
+			<tr>
+				<td>Release Date</td>
+				<td><p id="date_val"></p></td>
+			</tr>
+			<tr>
+				<td>Duration</td>
+				<td><p id="duration_val"></p></td>
+			</tr>
+			<tr>
+				<td>Genre</td>
+				<td><p id="genre_val"></p></td>
+			</tr>
+			<tr>
+				<td>Synopsis</td>
+				<td><p id="synopsis_val"></p></td>
+			</tr>
+		</table>
+	</div>
+
+	<div style="margin-left: auto; margin-right: auto; width: 500px;">
+		<h1>Edit</h1>
+		<table>
+			<tr>
+				<td>Title</td>
+				<td><input type="text" name="title" id="title"></td>
+			</tr>
+			<tr>
+				<td>Release Date</td>
+				<td><input type="text" name="date" id="date"></td>
+			</tr>
+			<tr>
+				<td>Duration</td>
+				<td><input type="text" name="duration" id="duration"></td>
+			</tr>
+			<tr>
+				<td>Genre</td>
+				<td><input type="text" name="genre" id="genre"></td>
+			</tr>
+			<tr>
+				<td>Synopsis</td>
+				<td><input type="text" name="synopsis" id="synopsis"></td>
+			</tr>
+		</table>
+		<input type="button" id="submit" style="margin-top: 10px;" value="Submit">
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function  () {
+	        $.ajax({
+	            type: "GET",
+	            url: "http://127.0.0.1:8080/query",
+	            timeout: 1000,
+	            success: function(data) {
+	                $('#title_val').text(data.title);
+	                $('#date_val').text(data.date);
+	                $('#duration_val').text(data.duration);
+	                $('#genre_val').text(data.genre);
+	                $('#synopsis_val').text(data.synopsis);
+	            },
+	        });
+
+		    $('#submit').on('click', function() {
+		        $.ajax({
+		            type: "POST",
+		            url: "http://127.0.0.1:8080/submit",
+		            timeout: 1000,
+		            data: { 
+		            	title: $('#title').val(), 
+		            	date: $('#date').val(), 
+		            	duration: $('#duration').val(), 
+		            	genre: $('#genre').val(), 
+		            	synopsis: $('#synopsis').val() 
+		            },
+		            success: function(data) {
+		                $('#title_val').text(data.title);
+		                $('#date_val').text(data.date);
+		                $('#duration_val').text(data.duration);
+		                $('#genre_val').text(data.genre);
+		                $('#synopsis_val').text(data.synopsis);
+		            },
+		        });
+		    });
+		});
+	</script>
+</body>
+</html>
